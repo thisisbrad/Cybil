@@ -28,10 +28,8 @@ module.exports = config => {
   });
 
   // Save or update item
-  router.post('/', async (req, res, next) => {
-    return next('Not implemented');
-
-    /*
+  router.post('/', async (req, res) => {
+    // return next('Not implemented');
 
     // Massage the passed in form data a bit
     const sku = req.body.sku.trim();
@@ -42,7 +40,7 @@ module.exports = config => {
     if (!sku || !name || !price) {
       req.session.messages.push({
         type: 'warning',
-        text: 'Please enter SKU, name and price!',
+        text: 'Please enter SKU, name and price!'
       });
       return res.redirect('/admin/item');
     }
@@ -55,31 +53,30 @@ module.exports = config => {
         const itemData = {
           sku,
           name,
-          price,
+          price
         };
         await itemService.update(req.body.itemId, itemData);
       }
       req.session.messages.push({
         type: 'success',
-        text: `The item was ${req.body.itemId ? 'updated' : 'created'} successfully!`,
+        text: `The item was ${
+          req.body.itemId ? 'updated' : 'created'
+        } successfully!`
       });
       return res.redirect('/admin/item');
     } catch (err) {
       req.session.messages.push({
         type: 'danger',
-        text: 'There was an error while saving the item!',
+        text: 'There was an error while saving the item!'
       });
       log.fatal(err);
       return res.redirect('/admin/item');
     }
-    */
   });
 
   // Delete item
-  router.get('/delete/:itemId', async (req, res, next) => {
-    return next('Not implemented');
-
-    /*
+  router.get('/delete/:itemId', async (req, res) => {
+    // return next('Not implemented');
     try {
       const deleteResult = await itemService.remove({ _id: req.params.itemId });
       if (deleteResult === 0) {
@@ -89,7 +86,7 @@ module.exports = config => {
       // Error handling
       req.session.messages.push({
         type: 'danger',
-        text: 'There was an error while deleting the item!',
+        text: 'There was an error while deleting the item!'
       });
       log.fatal(err);
       return res.redirect('/admin/item');
@@ -97,10 +94,9 @@ module.exports = config => {
     // Let the item knows that everything went fine
     req.session.messages.push({
       type: 'success',
-      text: 'The item was successfully deleted!',
+      text: 'The item was successfully deleted!'
     });
     return res.redirect('/admin/item');
-    */
   });
   return router;
 };
