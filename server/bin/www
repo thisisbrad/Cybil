@@ -4,8 +4,13 @@
 const http = require('http');
 const config = require('../config');
 const App = require('../app');
+const mongoose = require('mongoose');
 
 const log = config.logger;
+
+mongoose.connect(config.mongodb.uri).then(() => {
+  log.info('Successfully connected to MongoDB');
+});
 
 /* Logic to start the application */
 const app = App(config);
@@ -16,9 +21,7 @@ function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
-  const bind = typeof port === 'string'
-    ? `Pipe ${port}`
-    : `Port  ${port}`;
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port  ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -38,9 +41,7 @@ function onError(error) {
 const server = http.createServer(app);
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? `pipe ${addr}`
-    : `port ${addr.port}`;
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
 
   log.info(`${config.applicationName} listening on ${bind}`);
 }

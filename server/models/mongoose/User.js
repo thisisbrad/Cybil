@@ -1,18 +1,26 @@
 const mongoose = require('mongoose');
-
 const bcrypt = require('bcrypt');
+
 const SALT_WORK_FACTOR = 10;
 
-
-const UserSchema = mongoose.Schema({
-  email: {
-    // Trim and lowercase
-    type: String, required: true, index: { unique: true }, lowercase: true, trim: true,
+const UserSchema = mongoose.Schema(
+  {
+    email: {
+      // Trim and lowercase
+      type: String,
+      required: true,
+      index: { unique: true },
+      lowercase: true,
+      trim: true
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true
+    }
   },
-  password: {
-    type: String, required: true, trim: true,
-  },
-}, { timestamps: true });
+  { timestamps: true }
+);
 
 UserSchema.pre('save', function preSave(next) {
   const user = this;
@@ -33,12 +41,14 @@ UserSchema.pre('save', function preSave(next) {
   });
 });
 
-UserSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
+UserSchema.methods.comparePassword = function comparePassword(
+  candidatePassword,
+  cb
+) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) return cb(err);
     return cb(null, isMatch);
   });
 };
-
 
 module.exports = mongoose.model('User', UserSchema);
