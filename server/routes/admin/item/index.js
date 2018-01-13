@@ -1,13 +1,13 @@
 const express = require('express');
+const itemService = require('../../../services/itemService');
 
-module.exports = (config) => {
+module.exports = config => {
   const router = express.Router();
   const log = config.logger;
 
-  router.get('/:itemId?', async (req, res) => {
-    return res.render('admin/item', {});
+  router.get('/:itemId?', async (req, res, next) => {
+    // return res.render('admin/item', {});
 
-    /*
     try {
       const items = await itemService.getAll();
       let item = null;
@@ -15,16 +15,16 @@ module.exports = (config) => {
       // The optional param itemId is present
       if (req.params.itemId) {
         item = await itemService.getOne(req.params.itemId);
+        log.info(`Got this item back ${item}`);
       }
 
       return res.render('admin/item', {
         items,
-        item,
+        item
       });
     } catch (err) {
       return next(err);
     }
-    */
   });
 
   // Save or update item
