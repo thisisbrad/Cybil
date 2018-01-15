@@ -9,6 +9,6 @@ module.exports = {
     uri: 'mongodb://localhost:37017/shopsy'
   },
   redis: {
-    options: { port: 3779 }
+    options: { port: 7379 }
   }
 };
