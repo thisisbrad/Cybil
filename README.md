@@ -11,3 +11,8 @@
 * docker run --name redis -p 7379:6379 -d redis
 
 * docker ps (Should list the databases)
+
+### Run and View Redis Commander
+
+* sudo npm i -g redis-commander
+* redis-commander --redis-port 7379

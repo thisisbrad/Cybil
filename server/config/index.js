@@ -7,5 +7,8 @@ module.exports = {
   logger: bunyan.createLogger({ name: appname }),
   mongodb: {
     uri: 'mongodb://localhost:37017/shopsy'
+  },
+  redis: {
+    options: { port: 3779 }
   }
 };
