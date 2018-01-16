@@ -7,6 +7,7 @@
     "start": "node ./server/bin/www | ./node_modules/bunyan/bin/bunyan"
   },
   "dependencies": {
+    "0x": "^2.5.3",
     "bcrypt": "^1.0.3",
     "body-parser": "~1.17.1",
     "bunyan": "^1.8.12",
