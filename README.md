@@ -10,6 +10,9 @@
 * docker pull redis
 * docker run --name redis -p 7379:6379 -d redis
 
+* docker pull mysql
+* docker run --name mysql -p 3406:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql
+
 * docker ps (Should list the databases)
 
 ### Run and View Redis Commander

@@ -4,10 +4,8 @@
   "private": true,
   "author": "Daniel Khan <daniel@khan.io>",
   "scripts": {
-    "start":
-      "node ./server/bin/www --harmony | ./node_modules/bunyan/bin/bunyan",
-    "debug":
-      "DEBUG=express* ./server/bin/www | ./node_modules/bunyan/bin/bunyan",
+    "start": "node ./server/bin/www --harmony | ./node_modules/bunyan/bin/bunyan",
+    "debug": "DEBUG=express* ./server/bin/www | ./node_modules/bunyan/bin/bunyan",
     "inspect": "node --inspect ./server/bin/www"
   },
   "dependencies": {
@@ -22,8 +20,10 @@
     "express": "~4.15.2",
     "express-session": "^1.15.6",
     "mongoose": "^4.13.9",
+    "mysql2": "^1.5.1",
     "pug": "~2.0.0-beta11",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "sequelize": "^4.31.2"
   },
   "devDependencies": {
     "eslint": "^4.8.0",
