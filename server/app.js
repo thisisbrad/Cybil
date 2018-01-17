@@ -4,9 +4,14 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const routeHandler = require('./routes');
+const userService = require('./services/userService');
+const basketService = require('./services/basketService');
 
 module.exports = config => {
   const app = express();
+
+  // Attach Redis client to the basket
+  const basket = basketService(config.redis.client);
 
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
