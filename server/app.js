@@ -9,6 +9,7 @@ const basketService = require('./services/basketService');
 
 module.exports = config => {
   const app = express();
+  const { logger } = config;
 
   // Attach Redis client to the basket
   const basket = basketService(config.redis.client);
@@ -50,6 +51,24 @@ module.exports = config => {
       req.session.messages = [];
     }
     res.locals.messages = req.session.messages;
+
+    try {
+      // Check to see if a user is logged in
+      if (req.session.userId) {
+        res.locals.currentUser = await userService.getOne(req.session.userId);
+        const basketContents = await basket.getAll(req.session.userId);
+        let count = 0;
+        if (basketContents) {
+          Object.keys(basketContents).forEach(item => {
+            // Add to the count and parse to int incase it's a string in Redis
+            count += parseInt(basketContents[item], 10);
+          });
+        }
+        res.locals.basketCount = count;
+      }
+    } catch (err) {
+      return next(err);
+    }
     return next();
   });
 
