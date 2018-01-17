@@ -4,7 +4,8 @@
   "private": true,
   "author": "Daniel Khan <daniel@khan.io>",
   "scripts": {
-    "start": "node ./server/bin/www | ./node_modules/bunyan/bin/bunyan",
+    "start":
+      "node ./server/bin/www --harmony | ./node_modules/bunyan/bin/bunyan",
     "debug":
       "DEBUG=express* ./server/bin/www | ./node_modules/bunyan/bin/bunyan",
     "inspect": "node --inspect ./server/bin/www"
@@ -12,6 +13,7 @@
   "dependencies": {
     "0x": "^2.5.3",
     "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "~1.17.1",
     "bunyan": "^1.8.12",
     "connect-redis": "^3.3.3",
