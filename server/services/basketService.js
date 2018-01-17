@@ -1,4 +1,5 @@
-import { Promise } from 'mongoose';
+// import { Promise } from 'mongoose';
+const Promise = require('bluebird');
 
 let client = null;
 
@@ -16,7 +17,7 @@ async function add(itemId, userId) {
           return resolve(result);
         });
       }
-      return client.hincby(`basket: ${userId}`, itemId, 1, (err, result) => {
+      return client.hincrby(`basket: ${userId}`, itemId, 1, (err, result) => {
         if (err) return reject(err);
         return resolve(result);
       });
@@ -37,13 +38,13 @@ async function getAll(userId) {
 }
 
 // remove from basket
-async function remove(userId, itemId) {
+async function remove(itemId, userId) {
   return new Promise((resolve, reject) => {
     // Select item to remove form basket
     client.hdel(`basket: ${userId}`, itemId, (err, result) => {
       if (err) return reject(err);
       return resolve(result);
-    });)
+    });
   });
 }
 

@@ -18,7 +18,7 @@ async function update(userId, data) {
 
   if (!user) return new Error('Could not find requested user');
 
-  Object.keys(data).forEach((key) => {
+  Object.keys(data).forEach(key => {
     user[key] = data[key];
   });
 
@@ -35,5 +35,5 @@ module.exports = {
   getOne,
   create,
   update,
-  remove,
+  remove
 };
