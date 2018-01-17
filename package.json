@@ -5,8 +5,9 @@
   "author": "Daniel Khan <daniel@khan.io>",
   "scripts": {
     "start": "node ./server/bin/www | ./node_modules/bunyan/bin/bunyan",
-    "debug": "DEBUG=express* ./server/bin/www",
-    "inspect": "node --inspect ./server/bin/www "
+    "debug":
+      "DEBUG=express* ./server/bin/www | ./node_modules/bunyan/bin/bunyan",
+    "inspect": "node --inspect ./server/bin/www"
   },
   "dependencies": {
     "0x": "^2.5.3",
