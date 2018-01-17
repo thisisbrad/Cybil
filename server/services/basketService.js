@@ -1,6 +1,3 @@
-// import { Promise } from 'mongoose';
-const Promise = require('bluebird');
-
 let client = null;
 
 // add to basket
