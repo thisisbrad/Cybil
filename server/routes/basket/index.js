@@ -1,34 +1,33 @@
 const express = require('express');
+const itemService = require('../../services/itemService');
+const basketService = require('../../services/basketService');
+const userService = require('../../services/userService');
 
-module.exports = (config) => {
+module.exports = config => {
   const router = express.Router();
-  const log = config.logger;
+  const { redis, log } = config;
+  const basket = basketService(redis.client);
 
   router.get('/', async (req, res) => {
-    return res.render('basket', {});
-
-    /*
     const basketItems = await basket.getAll(res.locals.currentUser.id);
     let items = [];
     if (basketItems) {
-      items = await Promise.all(Object.keys(basketItems).map(async (key) => {
-        const item = await itemService.getOne(key);
-        item.quantity = basketItems[key];
-        return item;
-      }));
+      items = await Promise.all(
+        Object.keys(basketItems).map(async key => {
+          const item = await itemService.getOne(key);
+          item.quantity = basketItems[key];
+          return item;
+        })
+      );
     }
     return res.render('basket', { items });
-    */
   });
 
-  router.get('/remove/:itemId', async (req, res, next) => {
-    return next('Not implemented');
-
-    /*
+  router.get('/remove/:itemId', async (req, res) => {
     if (!res.locals.currentUser) {
       req.session.messages.push({
         type: 'warning',
-        text: 'Please log in first',
+        text: 'Please log in first'
       });
       return res.redirect('/shop');
     }
@@ -37,19 +36,18 @@ module.exports = (config) => {
       await basket.remove(req.params.itemId, res.locals.currentUser.id);
       req.session.messages.push({
         type: 'success',
-        text: 'The item was removed from the the basket',
+        text: 'The item was removed from the the basket'
       });
     } catch (err) {
       req.session.messages.push({
         type: 'danger',
-        text: 'There was an error removing the item from the basket',
+        text: 'There was an error removing the item from the basket'
       });
       log.fatal(err);
       return res.redirect('/basket');
     }
 
     return res.redirect('/basket');
-    */
   });
 
   router.get('/buy', async (req, res, next) => {
