@@ -17,7 +17,7 @@ module.exports = {
       port: 3406,
       username: 'root',
       password: 'password',
-      database: 'maxcoin',
+      database: 'shopsy',
       dialect: 'mysql'
     }
   }
