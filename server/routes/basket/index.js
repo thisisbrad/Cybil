@@ -53,10 +53,7 @@ module.exports = config => {
     return res.redirect('/basket');
   });
 
-  router.get('/buy', async (req, res, next) => {
-    return next('Not implemented');
-
-    /*
+  router.get('/buy', async (req, res) => {
     try {
       const userId = res.locals.currentUser.id;
       const user = res.locals.currentUser;
@@ -71,37 +68,40 @@ module.exports = config => {
 
       // Find the item for each basket entry and add the quantity to it
       // Return a new array with items plus quantity as new field
-      const items = await Promise.all(Object.keys(basketItems).map(async (key) => {
-        const item = await itemService.getOne(key);
-        item.quantity = basketItems[key];
-        return item;
-      }));
+      const items = await Promise.all(
+        Object.keys(basketItems).map(async key => {
+          const item = await itemService.getOne(key);
+          item.quantity = basketItems[key];
+          return item;
+        })
+      );
 
       // Run this in a sequelize transaction
-      await order.inTransaction(async (t) => {
+      await order.inTransaction(async t => {
         // Create a new order and add all items
         await order.create(user, items, t);
         // Clear the users basket
-        await Promise.all(Object.keys(basketItems).map(async (key) => {
-          await basket.remove(key, userId);
-        }));
+        await Promise.all(
+          Object.keys(basketItems).map(async key => {
+            await basket.remove(key, userId);
+          })
+        );
       });
 
       req.session.messages.push({
         type: 'success',
-        text: 'Thank you for your business',
+        text: 'Thank you for your business'
       });
 
       return res.redirect('/basket');
     } catch (err) {
       req.session.messages.push({
         type: 'danger',
-        text: 'There was an error finishing your order',
+        text: 'There was an error finishing your order'
       });
       log.fatal(err);
       return res.redirect('/basket');
     }
-    */
   });
 
   return router;
