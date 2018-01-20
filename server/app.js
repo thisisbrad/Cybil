@@ -9,7 +9,6 @@ const basketService = require('./services/basketService');
 
 module.exports = config => {
   const app = express();
-  const { logger } = config;
 
   // Attach Redis client to the basket
   const basket = basketService(config.redis.client);
