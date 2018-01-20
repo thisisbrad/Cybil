@@ -49,7 +49,7 @@ async function create(user, items, transaction) {
 }
 
 async function getAll() {
-  return models.Order.findAll({ where: {}, includes: [models.OrderItem] });
+  return models.Order.findAll({ where: {}, include: [models.OrderItem] });
 }
 
 module.exports = _client => {
