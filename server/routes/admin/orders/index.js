@@ -1,13 +1,14 @@
 const express = require('express');
+const orderService = require('../../../services/orderService');
 
-module.exports = (config) => {
+module.exports = config => {
   const router = express.Router();
   const log = config.logger;
+  const order = orderService(config.mysql.client);
 
-  router.get('/', async (req, res) => {
-    return res.render('admin/orders', {});
+  router.get('/', async (req, res, next) => {
+    // return res.render('admin/orders', {});
 
-    /*
     try {
       // Get all orders
       const orderResult = await order.getAll();
@@ -17,12 +18,11 @@ module.exports = (config) => {
     } catch (err) {
       req.session.messages.push({
         type: 'danger',
-        text: 'There was an error fetching the orders',
+        text: 'There was an error fetching the orders'
       });
       log.fatal(err);
       return next(err);
     }
-    */
   });
 
   router.get('/setshipped/:orderId', async (req, res, next) => {
@@ -49,4 +49,3 @@ module.exports = (config) => {
 
   return router;
 };
-

@@ -1,7 +1,7 @@
 const express = require('express');
 const itemService = require('../../services/itemService');
 const basketService = require('../../services/basketService');
-const userService = require('../../services/userService');
+// const userService = require('../../services/userService');
 const orderService = require('../../services/orderService');
 
 module.exports = config => {

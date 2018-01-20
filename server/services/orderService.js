@@ -48,8 +48,16 @@ async function create(user, items, transaction) {
   );
 }
 
+async function getAll() {
+  return models.Order.findAll({ where: {}, includes: [models.OrderItem] });
+}
+
 module.exports = _client => {
   models = Models(_client);
   client = _client;
-  return { create, inTransaction };
+  return {
+    create,
+    inTransaction,
+    getAll
+  };
 };
