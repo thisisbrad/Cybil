@@ -25,26 +25,22 @@ module.exports = config => {
     }
   });
 
-  router.get('/setshipped/:orderId', async (req, res, next) => {
-    return next('Not Implemented');
-
-    /*
+  router.get('/setshipped/:orderId', async (req, res) => {
     try {
       await order.setStatus(req.params.orderId, 'Shipped');
       req.session.messages.push({
         type: 'success',
-        text: 'Status updated',
+        text: 'Status updated'
       });
       return res.redirect('/admin/orders');
     } catch (err) {
       req.session.messages.push({
         type: 'danger',
-        text: 'There was an updaeting the order',
+        text: 'There was an updaeting the order'
       });
       log.fatal(err);
       return res.redirect('/admin/orders');
     }
-    */
   });
 
   return router;

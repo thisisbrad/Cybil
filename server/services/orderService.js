@@ -52,12 +52,17 @@ async function getAll() {
   return models.Order.findAll({ where: {}, include: [models.OrderItem] });
 }
 
+async function setStatus(id, status) {
+  return models.Order.update({ status }, { where: { id } });
+}
+
 module.exports = _client => {
   models = Models(_client);
   client = _client;
   return {
     create,
     inTransaction,
-    getAll
+    getAll,
+    setStatus
   };
 };
